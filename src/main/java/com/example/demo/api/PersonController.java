@@ -2,7 +2,10 @@ package com.example.demo.api;
 
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +23,7 @@ public class PersonController  {
     }
 
     @PostMapping
-    public void addPerson(@RequestBody Person person) {
+    public void addPerson(@Valid @NonNull @RequestBody Person person) {
         personService.addPerson(person);
     }
 
@@ -30,7 +33,7 @@ public class PersonController  {
     }
 
     @GetMapping(path = "{id}")
-    public Person getPersonById(@PathVariable("id") UUID id) {
+    public Person getPersonById(@Valid @NonNull @PathVariable("id") UUID id) {
         return personService.getPersonById(id)
                 .orElse(null);
     }
@@ -41,7 +44,7 @@ public class PersonController  {
     }
 
     @PutMapping(path = "{id}")
-    public void updatePerson(@PathVariable("id") UUID id, @RequestBody Person personToUpdate) {
+    public void updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person personToUpdate) {
         personService.updatePerson(id, personToUpdate);
     }
 
